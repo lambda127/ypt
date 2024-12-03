@@ -21,10 +21,10 @@
         android:bottom="5dp"/>
 
 
-
+<!--
     <size
         android:width="364dp"
         android:height="133dp"/>
-
+-->
 
 </shape>

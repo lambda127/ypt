@@ -20,6 +20,7 @@
             android:text="Add Something"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:paddingLeft="5dp"/>
 
         <ImageView
@@ -42,6 +43,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:text="Input content : "
+            android:textColor="@color/black"
             android:textSize="15sp"/>
 
         <EditText
@@ -49,6 +51,8 @@
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:hint="Input"
+            android:textColor="@color/black"
+            android:textColorHint="#474747"
             android:textSize="15sp"/>
 
     </LinearLayout>

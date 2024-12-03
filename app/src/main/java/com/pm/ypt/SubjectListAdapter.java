@@ -1,5 +1,7 @@
 package com.pm.ypt;
 
+import static com.pm.ypt.MainActivity.formatTime;
+
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -45,7 +47,7 @@ public class SubjectListAdapter extends BaseAdapter {
 
 
         subject_name.setText(subject.getsName());
-        subject_chronometer.setText(DateFormat.format("kk  :  mm  :  ss", subject.getTime()));
+        subject_chronometer.setText(formatTime(subject.getTime()));
 
         return view;
     }

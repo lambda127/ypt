@@ -28,6 +28,8 @@ import androidx.core.view.WindowInsetsCompat;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private String todoContent = null;
     private ToDoListAdapter todo_adapter;
 
-    private boolean running;
-    private long pauseOffset;
+    private boolean running = false;
+    private long pauseOffset = 0;
     private long tmpTime = 0;
 
 
@@ -55,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
     }
+
+    public static String formatTime(long millis) {
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
+
+        return String.format("%02d  :  %02d  :  %02d", hours, minutes, seconds);
+    }
+
 
     private void animateHeightChange(View view, int startHeight, int endHeight, int duration) {
         ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
@@ -81,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         LinearLayout box_shadow = (LinearLayout) findViewById(R.id.box_shadow);
         LinearLayout subject_list_box = (LinearLayout) findViewById(R.id.subject_list_box);
@@ -110,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn_todo_add = (ImageButton) findViewById(R.id.btn_todo_add);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.setText(DateFormat.format("kk  :  mm  :  ss", pauseOffset));
+        chronometer.setText(formatTime(pauseOffset));
 
         ImageButton chrono_button = (ImageButton) findViewById(R.id.chrono_button);
 
@@ -127,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
         int expandedHeight = ConvertDPtoPX(this, 400);
         int collapsedHeight = ConvertDPtoPX(this, 133);
+
+        int px25 = ConvertDPtoPX(this, 25);
 
 
 
@@ -146,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             public void onChronometerTick(Chronometer cArg) {
                 long t = SystemClock.elapsedRealtime() - cArg.getBase();
-                cArg.setText(DateFormat.format("kk  :  mm  :  ss", t));
+                cArg.setText(formatTime(t));
                 if(sName != null){
                     subject_adapter.subjects.get(subject_spinner.getSelectedItemPosition()).setTime(t-tmpTime);
                     subject_list.setAdapter(subject_adapter);
@@ -161,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(!running){
+
                     chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
                     tmpTime = pauseOffset;
                     chronometer.start();
@@ -183,12 +200,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (!dd_pressed) {
-                    animateHeightChange(box_shadow, collapsedHeight, expandedHeight, 300);
+                    animateHeightChange(box_shadow, collapsedHeight, expandedHeight, 500);
                     subject_list_box.setVisibility(View.VISIBLE);
                     subject_list.setVisibility(View.VISIBLE);
                     dd_button.setBackgroundResource(R.drawable.arrow_drop_up);
                 } else {
-                    animateHeightChange(box_shadow, expandedHeight, collapsedHeight, 300);
+                    animateHeightChange(box_shadow, expandedHeight, collapsedHeight, 500);
                     subject_list_box.setVisibility(View.INVISIBLE);
                     subject_list.setVisibility(View.INVISIBLE);
                     dd_button.setBackgroundResource(R.drawable.arrow_drop_down);
@@ -277,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
                         animateWidthChange(progress_fill,
                                 progress_fill.getWidth(),
-                                ConvertDPtoPX(v.getContext(), 25 + (int)(270 * todo_rate)), 1200);
+                                px25 + (int)((  progress_back.getWidth() - px25) * todo_rate), 1200);
 
                         ad.dismiss();
                     }
@@ -304,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
                 animateWidthChange(progress_fill,
                         progress_fill.getWidth(),
-                        ConvertDPtoPX(view.getContext(), 25 + (int)(270 * todo_rate)), 1200);
+                        px25 + (int)((  progress_back.getWidth() - px25) * todo_rate), 1200);
 
 
 

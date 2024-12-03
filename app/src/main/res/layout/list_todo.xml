@@ -22,10 +22,12 @@
 
     <TextView
         android:id="@+id/todo_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="To-Do Content"
+        android:textColor="@color/black"
+        android:breakStrategy="balanced"
         android:textSize="15sp"/>
 
 
