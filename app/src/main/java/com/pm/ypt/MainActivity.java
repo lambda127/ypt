@@ -2,8 +2,10 @@ package com.pm.ypt;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import androidx.core.view.WindowInsetsCompat;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
     private float todo_rate;
 
-    private float tmp = 0;
+
+    private SharedPreferences preferences;
 
 
 
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         LinearLayout box_shadow = (LinearLayout) findViewById(R.id.box_shadow);
         LinearLayout subject_list_box = (LinearLayout) findViewById(R.id.subject_list_box);
         ListView subject_list = (ListView) findViewById(R.id.subject_list);
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn_todo_add = (ImageButton) findViewById(R.id.btn_todo_add);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.setText(formatTime(pauseOffset));
+
 
         ImageButton chrono_button = (ImageButton) findViewById(R.id.chrono_button);
 
@@ -145,6 +150,16 @@ public class MainActivity extends AppCompatActivity {
         int px25 = ConvertDPtoPX(this, 25);
 
 
+        /*
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        pauseOffset = preferences.getLong("pauseOffset", 0);
+        chronometer.setText(formatTime(pauseOffset));
+
+
+        subject_adapter.setSubjects(preferences.));
+         */
 
 
 
@@ -313,7 +328,6 @@ public class MainActivity extends AppCompatActivity {
                 todo_adapter.checkedConfirm(position);
                 todo_adapter.notifyDataSetChanged();
 
-                tmp = todo_rate;
 
                 todo_rate = (float) todo_adapter.getChecked_num() / todo_adapter.getCount();
                 progress_txt.setText((int) (todo_rate * 100) + "%");

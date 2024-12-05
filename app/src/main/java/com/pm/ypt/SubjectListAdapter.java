@@ -17,6 +17,11 @@ public class SubjectListAdapter extends BaseAdapter {
     ArrayList<Subject> subjects = new ArrayList<Subject>();
     Context context;
 
+
+    public void setSubjects(ArrayList<Subject> subjects){
+        this.subjects = subjects;
+    }
+
     @Override
     public int getCount() {
         return subjects.size();
