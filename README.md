@@ -8,3 +8,7 @@
 - 사용 언어 : :Java
 
 - 사용 기술 : Figma, Android studio
+
+
+- 첨부파일
+[동아리 프로젝트.pdf](https://github.com/user-attachments/files/18037635/default.pdf)
