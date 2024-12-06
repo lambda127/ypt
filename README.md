@@ -9,8 +9,7 @@
 
 - 사용 기술 : Figma, Android studio
 
+---
 
-
-첨부파일
-  
-  [동아리 프로젝트.pdf](https://github.com/user-attachments/files/18037635/default.pdf)
+### 첨부파일
+- [동아리 프로젝트.pdf](https://github.com/user-attachments/files/18037635/default.pdf)
