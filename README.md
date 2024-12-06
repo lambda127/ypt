@@ -5,3 +5,6 @@
 
 - 참여자 : 김채원, 김규연, 장우준
 
+- 사용 언어 : :Java
+
+- 사용 기술 : Figma, Android studio
